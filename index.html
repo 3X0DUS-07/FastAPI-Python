@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Mis Proyectos</title>
+</head>
+<body>
+    <h1>Lista de Proyectos</h1>
+    <ul id="project-list"></ul>
+
+    <script>
+        fetch("http://127.0.0.1:8000/projects")
+            .then(response => response.json())
+            .then(data => {
+                const list = document.getElementById("project-list");
+                data.projects.forEach(project => {
+                    const item = document.createElement("li");
+                    item.textContent = `${project.name} (${project.status})`;
+                    list.appendChild(item);
+                });
+            })
+            .catch(error => {
+                console.error("Error al obtener los proyectos:", error);
+            });
+    </script>
+</body>
+</html>
